@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROAD KINGS GAMING</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+
+body{
+    background:black;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* FONDO ANIMADO */
+body::before{
+    content:"";
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:url('bg.jpg') center/cover no-repeat;
+    opacity:0.15;
+    z-index:-2;
+}
+
+/* PARTÍCULAS */
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+
+/* HEADER */
+header{
+    text-align:center;
+    padding:30px;
+    animation:fadeDown 1s ease;
+}
+
+header img{
+    width:90%;
+    max-width:700px;
+    filter:drop-shadow(0 0 20px cyan);
+}
+
+/* NAV */
+nav{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    padding:15px;
+    border-bottom:2px solid cyan;
+}
+
+nav a{
+    color:cyan;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+/* HERO */
+.hero{
+    text-align:center;
+    padding:80px 20px;
+}
+
+.hero h1{
+    font-size:3em;
+    text-shadow:0 0 20px cyan;
+    animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+    from{ text-shadow:0 0 10px cyan; }
+    to{ text-shadow:0 0 30px magenta; }
+}
+
+/* BOTONES */
+.btn{
+    display:inline-block;
+    margin:15px;
+    padding:15px 30px;
+    border-radius:10px;
+    font-weight:bold;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.discord{
+    background:#5865F2;
+}
+
+.discord:hover{
+    box-shadow:0 0 20px #5865F2;
+}
+
+.galeria-btn{
+    background:linear-gradient(45deg,cyan,magenta);
+    color:black;
+}
+
+.galeria-btn:hover{
+    transform:scale(1.1);
+}
+
+/* GALERIA */
+.galeria{
+    padding:40px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
+
+.galeria img{
+    width:100%;
+    border-radius:15px;
+    border:2px solid cyan;
+    transition:0.3s;
+}
+
+.galeria img:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 30px cyan;
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:20px;
+    border-top:1px solid cyan;
+    color:#777;
+}
+
+/* ANIMACIÓN */
+@keyframes fadeDown{
+    from{opacity:0;transform:translateY(-50px);}
+    to{opacity:1;transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<header>
+<img src="logo.png">
+</header>
+
+<nav>
+<a href="#">Inicio</a>
+<a href="#galeria">Galería</a>
+<a href="#">Comunidad</a>
+</nav>
+
+<section class="hero">
+<h1>🔥 ROAD KINGS GAMING 🔥</h1>
+
+<a class="btn discord" href="https://discord.com/invite/PCm5HqpRQ5" target="_blank">
+💬 Entrar al Discord
+</a>
+
+<a class="btn galeria-btn" href="#galeria">
+🎮 Ver Galería
+</a>
+</section>
+
+<section id="galeria" class="galeria">
+<img src="img1.jpg">
+<img src="img2.jpg">
+<img src="img3.jpg">
+</section>
+
+<footer>
+© 2026 ROAD KINGS | MAPKALO SHAMU
+</footer>
+
+<script>
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for(let i=0;i<100;i++){
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        size:Math.random()*2,
+        speedY:Math.random()*1
+    });
+}
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(p=>{
+        p.y += p.speedY;
+        if(p.y > canvas.height) p.y = 0;
+
+        ctx.fillStyle = "cyan";
+        ctx.fillRect(p.x,p.y,p.size,p.size);
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>
